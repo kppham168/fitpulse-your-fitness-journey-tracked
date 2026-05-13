@@ -1,0 +1,384 @@
+<!-- Signup page for FitPulse — new users create an account here -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign up — FitPulse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    /* All styles for FitPulse signup page — matches the home page exactly */
+    :root {
+      --bg: #fdf6ee;
+      --text: #2a1810;
+      --muted: #d4c5b0;
+      --primary: #c4502a;
+      --accent: #4a8c6f;
+      --white: #ffffff;
+      --radius: 16px;
+      --shadow: 0 2px 8px rgba(42, 24, 16, 0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'DM Serif Display', serif;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ---- Navigation (same as home page) ---- */
+    .nav {
+      background: var(--bg);
+      border-bottom: 1px solid var(--muted);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    /* ---- Form card ---- */
+    .page-center {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 40px;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .card h1 {
+      font-size: 28px;
+      margin-bottom: 4px;
+    }
+
+    .card .subhead {
+      font-size: 14px;
+      color: #7a6b5a;
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--muted);
+      border-radius: 10px;
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--text);
+      transition: border-color 0.2s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(74, 140, 111, 0.15);
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      width: 100%;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: #b04420;
+      transform: translateY(-1px);
+    }
+
+    .text-sm { font-size: 14px; }
+    .text-center { text-align: center; }
+    .mt-4 { margin-top: 16px; }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .error-msg {
+      color: #dc2626;
+      font-size: 13px;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: var(--white);
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 14px;
+      z-index: 9999;
+      box-shadow: 0 4px 20px rgba(74, 140, 111, 0.3);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+
+    /* ---- Footer ---- */
+    .footer {
+      padding: 40px 24px;
+      border-top: 1px solid var(--muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .footer-col h4 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: 14px;
+      color: #7a6b5a;
+      text-decoration: none;
+      margin-bottom: 6px;
+    }
+
+    .footer-col a:hover {
+      color: var(--primary);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--muted);
+      padding: 16px 24px;
+      text-align: center;
+      font-size: 13px;
+      color: #7a6b5a;
+    }
+
+    @media (max-width: 640px) {
+      .card { padding: 24px; }
+      .footer { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation bar — same as home page, with "Get started" highlighted -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">FitPulse</a>
+    <div class="nav-links">
+      <a href="index.html#features">Features</a>
+      <a href="signin.html">Sign in</a>
+      <a href="signup.html" style="background:var(--primary);color:var(--white);padding:8px 18px;border-radius:8px;font-weight:600;">Get started</a>
+    </div>
+  </nav>
+
+  <!-- Signup form card -->
+  <div class="page-center">
+    <div class="card">
+      <h1>Start your journey</h1>
+      <p class="subhead">Create an account to track your fitness</p>
+
+      <form id="signup-form">
+        <div class="input-group">
+          <label for="name">Full name</label>
+          <input type="text" id="name" placeholder="Alex Rivera" required>
+          <span class="error-msg" id="name-error">Name is required</span>
+        </div>
+
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="you@example.com" required>
+          <span class="error-msg" id="email-error">Please enter a valid email</span>
+        </div>
+
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="At least 6 characters" minlength="6" required>
+          <span class="error-msg" id="password-error">Password must be at least 6 characters</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create account</button>
+      </form>
+
+      <p class="text-sm text-center mt-4">
+        Already have an account? <a href="signin.html">Sign in</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer — same as home page -->
+  <footer>
+    <div class="footer container">
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="index.html#features">Features</a>
+        <a href="#">Pricing</a>
+        <a href="#">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Blog</a>
+        <a href="#">Careers</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="#">Help center</a>
+        <a href="#">Contact</a>
+        <a href="#">Privacy</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 FitPulse. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- JavaScript: validates the form and saves user data to the browser -->
+  <script>
+    /* This script runs when the user clicks "Create account".
+       It checks that all fields are filled in correctly.
+       If valid, it saves the user's info to localStorage (the browser's memory)
+       and sends them to the dashboard page. */
+    document.getElementById('signup-form').addEventListener('submit', function(e) {
+      e.preventDefault(); // Stop the form from reloading the page
+
+      var name = document.getElementById('name').value.trim();
+      var email = document.getElementById('email').value.trim();
+      var password = document.getElementById('password').value;
+      var valid = true;
+
+      // Check each field and show an error if it's empty or wrong
+      if (!name) {
+        document.getElementById('name-error').style.display = 'block';
+        valid = false;
+      } else {
+        document.getElementById('name-error').style.display = 'none';
+      }
+
+      if (!email || !email.includes('@')) {
+        document.getElementById('email-error').style.display = 'block';
+        valid = false;
+      } else {
+        document.getElementById('email-error').style.display = 'none';
+      }
+
+      if (!password || password.length < 6) {
+        document.getElementById('password-error').style.display = 'block';
+        valid = false;
+      } else {
+        document.getElementById('password-error').style.display = 'none';
+      }
+
+      if (!valid) return; // Stop if anything is wrong
+
+      // Save user info to localStorage (the browser's built-in memory)
+      localStorage.setItem('fitpulse_user', JSON.stringify({ name: name, email: email, password: password }));
+
+      // Save an empty list of workouts (they will fill this in later)
+      localStorage.setItem('fitpulse_workouts', JSON.stringify([]));
+
+      // Go to the dashboard page
+      window.location.href = 'dashboard.html';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!-- Home page for FitPulse — a fitness tracking app. Updated to link to the new signup page. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitPulse — Your fitness journey, tracked</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    /* All custom styles for FitPulse */
+    :root {
+      --bg: #fdf6ee;
+      --text: #2a1810;
+      --muted: #d4c5b0;
+      --primary: #c4502a;
+      --accent: #4a8c6f;
+      --white: #ffffff;
+      --radius: 16px;
+      --shadow: 0 2px 8px rgba(42, 24, 16, 0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'DM Serif Display', serif;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ---- Navigation ---- */
+    .nav {
+      background: var(--bg);
+      border-bottom: 1px solid var(--muted);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-cta {
+      background: var(--primary);
+      color: var(--white) !important;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: #b04420;
+      transform: translateY(-1px);
+    }
+
+    /* ---- Buttons ---- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: #b04420;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: var(--accent);
+      color: var(--white);
+    }
+
+    .btn-secondary:hover {
+      background: #3d7a5f;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--muted);
+      color: var(--text);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* ---- Hero section ---- */
+    .hero {
+      padding: 80px 24px 60px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero .subhead {
+      font-size: 18px;
+      color: #7a6b5a;
+      max-width: 520px;
+      margin: 0 auto 32px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ---- Feature cards ---- */
+    .features {
+      padding: 60px 24px;
+    }
+
+    .features h2 {
+      font-size: 32px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(42, 24, 16, 0.1);
+    }
+
+    .feature-card .icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .feature-card h3 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: #7a6b5a;
+      line-height: 1.6;
+    }
+
+    /* ---- CTA band ---- */
+    .cta-band {
+      background: var(--primary);
+      color: var(--white);
+      text-align: center;
+      padding: 60px 24px;
+    }
+
+    .cta-band h2 {
+      font-size: 32px;
+      margin-bottom: 12px;
+      color: var(--white);
+    }
+
+    .cta-band p {
+      font-size: 16px;
+      opacity: 0.9;
+      margin-bottom: 24px;
+    }
+
+    .cta-band .btn {
+      background: var(--white);
+      color: var(--primary);
+    }
+
+    .cta-band .btn:hover {
+      background: #f0ebe2;
+    }
+
+    /* ---- Footer ---- */
+    .footer {
+      padding: 40px 24px;
+      border-top: 1px solid var(--muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .footer-col h4 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: 14px;
+      color: #7a6b5a;
+      text-decoration: none;
+      margin-bottom: 6px;
+    }
+
+    .footer-col a:hover {
+      color: var(--primary);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--muted);
+      padding: 16px 24px;
+      text-align: center;
+      font-size: 13px;
+      color: #7a6b5a;
+    }
+
+    /* ---- Mobile ---- */
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 32px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .footer { flex-direction: column; }
+      .nav-links { gap: 12px; }
+      .nav-links a { font-size: 13px; }
+    }
+
+    /* ---- Animations ---- */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation bar -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">FitPulse</a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="signin.html">Sign in</a>
+      <a href="signup.html" class="nav-cta">Get started</a>
+    </div>
+  </nav>
+
+  <!-- Hero section: the big headline at the top of the page -->
+  <section class="hero">
+    <h1>Your fitness journey,<br>tracked with purpose</h1>
+    <p class="subhead">Log workouts, track your progress, and reach your goals — all in one simple app.</p>
+    <div class="hero-ctas">
+      <a href="signup.html" class="btn btn-primary">Get started free</a>
+      <a href="#features" class="btn btn-outline">Learn more</a>
+    </div>
+  </section>
+
+  <!-- Features section: explains what the app does -->
+  <section id="features" class="features">
+    <div class="container">
+      <h2>Everything you need to stay on track</h2>
+      <div class="feature-grid">
+        <div class="feature-card fade-up">
+          <div class="icon">📊</div>
+          <h3>Progress dashboard</h3>
+          <p>See your weight trend, workout count, and stats at a glance.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="icon">🏋️</div>
+          <h3>Log every workout</h3>
+          <p>Record date, workout type, reps, weight, and time for each session.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="icon">🎯</div>
+          <h3>Goal tracking</h3>
+          <p>Set a target weight and see how close you are — updated every time you log in.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call-to-action band: encourages signup -->
+  <section class="cta-band">
+    <h2>Ready to take control?</h2>
+    <p>Start tracking your workouts today — it's free.</p>
+    <a href="signup.html" class="btn">Create your account</a>
+  </section>
+
+  <!-- Footer: links and copyright info -->
+  <footer>
+    <div class="footer container">
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#features">Features</a>
+        <a href="#">Pricing</a>
+        <a href="#">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Blog</a>
+        <a href="#">Careers</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="#">Help center</a>
+        <a href="#">Contact</a>
+        <a href="#">Privacy</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 FitPulse. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- JavaScript: fade-in animation on scroll -->
+  <script>
+    /* This script makes feature cards fade in when they scroll into view */
+    document.addEventListener('DOMContentLoaded', function() {
+      var els = document.querySelectorAll('.fade-up');
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.2 });
+      els.forEach(function(el) { observer.observe(el); });
+    });
+  </script>
+</body>
+</html>
